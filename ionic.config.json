@@ -1,0 +1,7 @@
+{
+  "name": "Final_Rearte",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
