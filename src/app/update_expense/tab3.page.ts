@@ -1,8 +1,12 @@
 import { Component, inject } from '@angular/core';
-import { IonHeader, IonToolbar, IonTitle, IonContent, AlertController, IonButton, IonItem, IonLabel, IonInput, IonCheckbox, IonSelectOption, IonSelect, IonList, IonBackButton, IonButtons, IonBadge } from '@ionic/angular/standalone';
+import {
+  IonHeader, IonToolbar, IonTitle, IonContent,
+  IonList, IonItem, IonLabel, IonBadge,
+  IonModal, IonButton, IonInput, IonSelect,
+  IonSelectOption, IonCheckbox, AlertController
+} from '@ionic/angular/standalone';
 import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ExpenseService } from '../services/expense-service';
-import { ActivatedRoute, Router } from '@angular/router';
 import { Expense } from '../model/expense';
 import { NgFor, NgIf } from '@angular/common';
 
@@ -10,19 +14,24 @@ import { NgFor, NgIf } from '@angular/common';
   selector: 'app-tab3',
   templateUrl: 'tab3.page.html',
   styleUrls: ['tab3.page.scss'],
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonItem, IonLabel, IonInput, IonCheckbox, IonSelectOption, IonSelect, IonList, ReactiveFormsModule, IonBadge, NgFor, NgIf],
+  standalone: true,
+  imports: [
+    IonHeader, IonToolbar, IonTitle, IonContent,
+    IonList, IonItem, IonLabel, IonBadge, IonButton, IonInput, IonSelect,
+    IonSelectOption, IonCheckbox,
+    ReactiveFormsModule, NgFor, NgIf,
+    IonModal
+  ]
 })
 export class Tab3Page {
-  private fb = inject(NonNullableFormBuilder);
+
   private service = inject(ExpenseService);
-  private route = inject(ActivatedRoute);
-  private router = inject(Router);
+  private fb = inject(NonNullableFormBuilder);
   private alertCtrl = inject(AlertController);
 
-  selectedExpense: Expense | null = null;
   expenses: Expense[] = [];
-
-  id!: number;
+  selectedExpense: Expense | null = null;
+  isModalOpen = false;
 
   form = this.fb.group({
     concepto: ['', Validators.required],
@@ -44,44 +53,46 @@ export class Tab3Page {
     });
   }
 
-  ngOnInit(): void {
-    this.id = Number(this.route.snapshot.paramMap.get('id'));
+  openEdit(expense: Expense) {
+    this.selectedExpense = expense;
+    this.form.patchValue(expense);
+    this.isModalOpen = true;
+  }
 
-    this.service.getById(String(this.id)).subscribe(expense => {
-      this.form.patchValue(expense);
-    });
+  closeModal() {
+    this.isModalOpen = false;
+    this.selectedExpense = null;
   }
 
   save() {
-    if (this.form.invalid) {
-      this.form.markAllAsTouched();
-      return;
-    }
-
-    const raw = this.form.getRawValue();
+    if (this.form.invalid || !this.selectedExpense) return;
 
     const payload: Expense = {
-      id: String(this.id),
-      ...raw
+      ...this.selectedExpense,
+      ...this.form.getRawValue()
     };
 
-    this.service.update(String(this.id), payload).subscribe(() => {
-      this.router.navigateByUrl('/');
+    this.service.update(payload.id, payload).subscribe(() => {
+      this.closeModal();
+      this.loadExpenses();
     });
   }
 
   async delete() {
+    if (!this.selectedExpense) return;
+
     const alert = await this.alertCtrl.create({
       header: 'Eliminar gasto',
-      message: '¿Seguro que desea eliminar este gasto?',
+      message: '¿Desea eliminar este gasto?',
       buttons: [
         { text: 'Cancelar', role: 'cancel' },
         {
           text: 'Eliminar',
           role: 'destructive',
           handler: () => {
-            this.service.delete(String(this.id)).subscribe(() => {
-              this.router.navigateByUrl('/');
+            this.service.delete(this.selectedExpense!.id).subscribe(() => {
+              this.closeModal();
+              this.loadExpenses();
             });
           }
         }
@@ -89,11 +100,6 @@ export class Tab3Page {
     });
 
     await alert.present();
-  }
-
-  selectExpense(expense: Expense) {
-    this.selectedExpense = expense;
-    this.form.patchValue(expense);
   }
 
   getColor(cat: Expense['categoria']) {

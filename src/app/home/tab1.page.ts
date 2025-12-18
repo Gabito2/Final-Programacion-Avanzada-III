@@ -10,7 +10,7 @@ import { NgFor, NgIf } from '@angular/common';
   selector: 'app-tab1',
   templateUrl: 'tab1.page.html',
   styleUrls: ['tab1.page.scss'],
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonBadge, IonLabel, IonList, IonItem, IonButtons, IonButton, NgFor, NgIf],
+  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonBadge, IonLabel, IonList, IonItem, NgFor, NgIf],
 })
 export class Tab1Page {
   private service = inject(ExpenseService);
@@ -40,14 +40,6 @@ export class Tab1Page {
       salud: 'success',
       ocio: 'primary'
     }[cat];
-  }
-
-  goToNew() {
-    this.router.navigateByUrl('/expense/new');
-  }
-
-  goToEdit(id: string) {
-    this.router.navigate(['/expense', id]);
   }
 
 }

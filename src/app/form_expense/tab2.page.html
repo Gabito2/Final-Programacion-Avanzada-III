@@ -14,7 +14,7 @@
 
       <ion-item>
         <ion-label position="stacked">Concepto</ion-label>
-        <ion-input formControlName="concepto" placeholder="Ej: Almuerzo"></ion-input>
+        <ion-input formControlName="concepto" placeholder="Nombre del gasto"></ion-input>
       </ion-item>
       <p class="ion-margin-start ion-text-danger"
         *ngIf="expenseForm.get('concepto')?.touched && expenseForm.get('concepto')?.invalid">El concepto es requerido.
@@ -22,7 +22,7 @@
 
       <ion-item>
         <ion-label position="stacked">Categoría</ion-label>
-        <ion-select formControlName="categoria">
+        <ion-select aria-label="Fruit" interface="modal" placeholder="Seleccione una categoria">
           <ion-select-option value="comida">Comida</ion-select-option>
           <ion-select-option value="transporte">Transporte</ion-select-option>
           <ion-select-option value="salud">Salud</ion-select-option>

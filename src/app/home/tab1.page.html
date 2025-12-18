@@ -7,10 +7,14 @@
 <ion-content class="ion-padding">
 
   <ion-list *ngIf="expenses.length; else empty">
-    <ion-item button *ngFor="let e of expenses" (click)="goToEdit(e.id)">
+    <ion-item button *ngFor="let e of expenses">
       <ion-label>
         <h2>{{ e.concepto }}</h2>
         <p>{{ e.fecha }} · ${{ e.monto }}</p>
+        <p *ngIf="e.pagado">Pagado</p>
+        <p *ngIf="!e.pagado">Pendiente</p>
+
+
       </ion-label>
 
       <ion-badge [color]="getColor(e.categoria)">

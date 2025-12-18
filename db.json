@@ -6,15 +6,15 @@
       "categoria": "comida",
       "monto": 18500,
       "fecha": "2025-12-05",
-      "pagado": true
+      "pagado": false
     },
     {
       "id": "2",
-      "concepto": "SUBE",
+      "concepto": "Pasaje",
       "categoria": "transporte",
       "monto": 2500,
       "fecha": "2025-12-06",
-      "pagado": true
+      "pagado": false
     },
     {
       "id": "3",
@@ -38,14 +38,14 @@
       "categoria": "comida",
       "monto": 6200,
       "fecha": "2025-12-18",
-      "pagado": false
+      "pagado": true
     },
     {
       "id": "0",
-      "concepto": "Pasaje",
-      "categoria": "transporte",
-      "monto": 2500,
-      "fecha": "2025-12-06",
+      "concepto": "Remera de River Plate",
+      "categoria": "comida",
+      "monto": 25000,
+      "fecha": "2025-12-18",
       "pagado": true
     }
   ]
