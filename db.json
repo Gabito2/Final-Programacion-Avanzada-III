@@ -25,26 +25,10 @@
       "pagado": false
     },
     {
-      "id": "4",
-      "concepto": "Cine",
-      "categoria": "ocio",
-      "monto": 9000,
-      "fecha": "2025-12-10",
-      "pagado": true
-    },
-    {
       "id": "5",
       "concepto": "Almuerzo",
       "categoria": "comida",
       "monto": 6200,
-      "fecha": "2025-12-18",
-      "pagado": true
-    },
-    {
-      "id": "0",
-      "concepto": "Remera de River Plate",
-      "categoria": "comida",
-      "monto": 25000,
       "fecha": "2025-12-18",
       "pagado": true
     }
