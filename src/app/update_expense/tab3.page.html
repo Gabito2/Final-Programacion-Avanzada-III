@@ -1,12 +1,71 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>
-      Detalle / Editar
-    </ion-title>
+    <ion-title>Detalle / Editar Gastos</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content class="ion-padding">
 
+  <!-- LISTADO -->
+  <ion-list>
+    <ion-item button *ngFor="let e of expenses" (click)="selectExpense(e)"
+      [color]="selectedExpense?.id === e.id ? 'light' : ''">
+      <ion-label>
+        <h2>{{ e.concepto }}</h2>
+        <p>{{ e.fecha }} · ${{ e.monto }}</p>
+      </ion-label>
+
+      <ion-badge [color]="getColor(e.categoria)">
+        {{ e.categoria }}
+      </ion-badge>
+    </ion-item>
+  </ion-list>
+
+  <!-- FORMULARIO -->
+  <form *ngIf="selectedExpense" [formGroup]="form">
+
+    <ion-list>
+
+      <ion-item>
+        <ion-label position="floating">Concepto</ion-label>
+        <ion-input formControlName="concepto"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Categoría</ion-label>
+        <ion-select formControlName="categoria">
+          <ion-select-option value="comida">Comida</ion-select-option>
+          <ion-select-option value="transporte">Transporte</ion-select-option>
+          <ion-select-option value="salud">Salud</ion-select-option>
+          <ion-select-option value="ocio">Ocio</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Monto</ion-label>
+        <ion-input type="number" formControlName="monto"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Fecha</ion-label>
+        <ion-input type="date" formControlName="fecha"></ion-input>
+      </ion-item>
+
+      <ion-item lines="none">
+        <ion-label>Pagado</ion-label>
+        <ion-checkbox formControlName="pagado"></ion-checkbox>
+      </ion-item>
+
+    </ion-list>
+
+    <ion-button expand="block" (click)="save()">
+      Guardar cambios
+    </ion-button>
+
+    <ion-button expand="block" color="danger" fill="outline" (click)="delete()">
+      Eliminar
+    </ion-button>
+
+  </form>
 
 </ion-content>

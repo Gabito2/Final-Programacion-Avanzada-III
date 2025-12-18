@@ -1,12 +1,65 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Nuevos Ingresos
-    </ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ id == null ? 'Nuevo Gasto' : 'Editar Gasto' }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
 
+  <form [formGroup]="expenseForm" (ngSubmit)="save()">
+    <ion-list>
+
+      <ion-item>
+        <ion-label position="stacked">Concepto</ion-label>
+        <ion-input formControlName="concepto" placeholder="Ej: Almuerzo"></ion-input>
+      </ion-item>
+      <p class="ion-margin-start ion-text-danger"
+        *ngIf="expenseForm.get('concepto')?.touched && expenseForm.get('concepto')?.invalid">El concepto es requerido.
+      </p>
+
+      <ion-item>
+        <ion-label position="stacked">Categoría</ion-label>
+        <ion-select formControlName="categoria">
+          <ion-select-option value="comida">Comida</ion-select-option>
+          <ion-select-option value="transporte">Transporte</ion-select-option>
+          <ion-select-option value="salud">Salud</ion-select-option>
+          <ion-select-option value="ocio">Ocio</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <p class="ion-margin-start ion-text-danger"
+        *ngIf="expenseForm.get('categoria')?.touched && expenseForm.get('categoria')?.invalid">Selecciona una categoría.
+      </p>
+
+      <ion-item>
+        <ion-label position="stacked">Monto</ion-label>
+        <ion-input formControlName="monto" type="number" inputmode="decimal" min="0.01" step="0.01"
+          placeholder="0.00"></ion-input>
+      </ion-item>
+      <p class="ion-margin-start ion-text-danger"
+        *ngIf="expenseForm.get('monto')?.touched && expenseForm.get('monto')?.invalid">Ingresa un monto válido (mayor
+        que 0).</p>
+
+      <ion-item>
+        <ion-label position="stacked">Fecha</ion-label>
+        <ion-input formControlName="fecha" type="date"></ion-input>
+      </ion-item>
+      <p class="ion-margin-start ion-text-danger"
+        *ngIf="expenseForm.get('fecha')?.touched && expenseForm.get('fecha')?.invalid">La fecha es requerida.</p>
+
+      <ion-item lines="none">
+        <ion-label>Pagado</ion-label>
+        <ion-checkbox slot="end" formControlName="pagado"></ion-checkbox>
+      </ion-item>
+
+    </ion-list>
+
+    <div class="ion-padding">
+      <ion-button expand="block" type="submit" color="primary">Guardar</ion-button>
+      <ion-button expand="block" fill="clear" color="medium" (click)="cancel()">Cancelar</ion-button>
+    </div>
+  </form>
 
 </ion-content>

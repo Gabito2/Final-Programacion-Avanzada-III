@@ -1,11 +1,28 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>
-      Home
-    </ion-title>
+    <ion-title>Home</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content class="ion-padding">
+
+  <ion-list *ngIf="expenses.length; else empty">
+    <ion-item button *ngFor="let e of expenses" (click)="goToEdit(e.id)">
+      <ion-label>
+        <h2>{{ e.concepto }}</h2>
+        <p>{{ e.fecha }} · ${{ e.monto }}</p>
+      </ion-label>
+
+      <ion-badge [color]="getColor(e.categoria)">
+        {{ e.categoria }}
+      </ion-badge>
+    </ion-item>
+  </ion-list>
+
+  <ng-template #empty>
+    <ion-label>
+      <p>No hay gastos registrados</p>
+    </ion-label>
+  </ng-template>
 
 </ion-content>

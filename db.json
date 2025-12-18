@@ -1,44 +1,52 @@
 {
-    "expenses": [
-        {
-            "id": 1,
-            "concepto": "Supermercado",
-            "categoria": "comida",
-            "monto": 18500,
-            "fecha": "2025-12-05",
-            "pagado": true
-        },
-        {
-            "id": 2,
-            "concepto": "SUBE",
-            "categoria": "transporte",
-            "monto": 2500,
-            "fecha": "2025-12-06",
-            "pagado": true
-        },
-        {
-            "id": 3,
-            "concepto": "Farmacia",
-            "categoria": "salud",
-            "monto": 7300,
-            "fecha": "2025-12-08",
-            "pagado": false
-        },
-        {
-            "id": 4,
-            "concepto": "Cine",
-            "categoria": "ocio",
-            "monto": 9000,
-            "fecha": "2025-12-10",
-            "pagado": true
-        },
-        {
-            "id": 5,
-            "concepto": "Almuerzo",
-            "categoria": "comida",
-            "monto": 6200,
-            "fecha": "2025-12-18",
-            "pagado": false
-        }
-    ]
+  "expenses": [
+    {
+      "id": "1",
+      "concepto": "Supermercado",
+      "categoria": "comida",
+      "monto": 18500,
+      "fecha": "2025-12-05",
+      "pagado": true
+    },
+    {
+      "id": "2",
+      "concepto": "SUBE",
+      "categoria": "transporte",
+      "monto": 2500,
+      "fecha": "2025-12-06",
+      "pagado": true
+    },
+    {
+      "id": "3",
+      "concepto": "Farmacia",
+      "categoria": "salud",
+      "monto": 7300,
+      "fecha": "2025-12-08",
+      "pagado": false
+    },
+    {
+      "id": "4",
+      "concepto": "Cine",
+      "categoria": "ocio",
+      "monto": 9000,
+      "fecha": "2025-12-10",
+      "pagado": true
+    },
+    {
+      "id": "5",
+      "concepto": "Almuerzo",
+      "categoria": "comida",
+      "monto": 6200,
+      "fecha": "2025-12-18",
+      "pagado": false
+    },
+    {
+      "id": "0",
+      "concepto": "Pasaje",
+      "categoria": "transporte",
+      "monto": 2500,
+      "fecha": "2025-12-06",
+      "pagado": true
+    }
+  ]
 }
